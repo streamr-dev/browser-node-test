@@ -15,3 +15,28 @@ code {
 .Wrapper {
   margin: 0px 0px 0px 24px;
 }
+.yourId {
+  font-weight: bold;
+}
+
+.messageList {
+  padding-top: 15px;
+}
+
+.connectionList {
+  margin-top: 25px;
+}
+
+.message {
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 0;
+  margin-bottom: 3px;
+}
+
+.connection {
+  margin-left: 10px;
+  margin-top: 0;
+  margin-bottom: 3px;
+  text-decoration: underline;
+}

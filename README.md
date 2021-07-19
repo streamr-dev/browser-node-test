@@ -1,3 +1,3 @@
-https://flaviocopes.com/react-how-to-configure-https-localhost/
+# Streamr Network Browser Test
 
-https://flaviocopes.com/macos-install-ssl-local/
+Tool to test running the network nodes in browsers.
