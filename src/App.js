@@ -1,9 +1,9 @@
 import React from 'react'
 import { hri } from 'human-readable-ids'
-import { MessageLayer } from 'streamr-client-protocol'
 
-import createBrowserNode from 'streamr-network'
+import { createNetworkNode, Protocol } from 'streamr-network'
 
+const { MessageLayer } = Protocol
 const { StreamMessage, MessageID, MessageRef } = MessageLayer
 
 let reactNode
@@ -14,24 +14,7 @@ class App extends React.Component {
   state = {
     id: this.props.id || hri.random(),
     state: 'Not Connected',
-    msgs: this.props.msgs || [
-      "Eric: 1",
-      "Eric: 2",
-      "Eric: 3",
-      "Eric: 4",
-      "Eric: 5",
-      "Eric: 6",
-      "Eric: 7",
-      "Eric: 8",
-      "Petri: 1",
-      "Petri: 2",
-      "Petri: 3",
-      "Petri: 4",
-      "Petri: 5",
-      "Petri: 6",
-      "Petri: 7",
-      "Petri: 8",
-    ],
+    msgs: this.props.msgs || [],
     connections: this.props.connections || [],
     sequenceNumber: 0,
     lastTimestamp: null,
@@ -40,17 +23,17 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(createBrowserNode)
-    reactNode = createBrowserNode({
+    reactNode = createNetworkNode({
         id: this.state.id,
-        trackers: [ { id: 'tracker', ws: 'ws://127.0.0.1:27777' } ],
-        stunUrls: []
+        trackers: [ { id: 'tracker', ws: 'ws://127.0.0.1:27777' } ]
     })
     reactNode.start()
     reactNode.subscribe('stream-0', 0)
     reactNode.addMessageListener((message) => {
         const content = JSON.parse(message.serializedContent)
-        this.addMsg(`${message.messageId.publisherId}: ${content.sequenceNumber}`)
+        if (message.messageId.publisherId !== this.state.id) {
+          this.addMsg(`${message.messageId.publisherId}: ${content.sequenceNumber}`)
+        }
     })
 
     publishIntervalRef = setInterval(() => {
