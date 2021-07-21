@@ -25,7 +25,7 @@ class App extends React.Component {
   componentDidMount() {
     reactNode = createNetworkNode({
         id: this.state.id,
-        trackers: [ { id: 'tracker', ws: 'ws://127.0.0.1:27777' } ]
+        trackers: [ { id: '0xBc2177D540A553E1f687Cd092E203de374e77244', ws: 'wss://88.99.104.143:30405/' } ]
     })
     reactNode.start()
     reactNode.subscribe('stream-0', 0)
